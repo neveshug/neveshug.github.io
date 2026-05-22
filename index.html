@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meu site de testes GA4</title>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NJBNTG3W8R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-NJBNTG3W8R');
+</script>
+
+  <style>
+    body { font-family: sans-serif; max-width: 700px; margin: 60px auto; padding: 0 20px; }
+    h1 { font-size: 28px; }
+    .btn { padding: 12px 24px; background: #1a73e8; color: #fff;
+           border: none; border-radius: 6px; cursor: pointer; font-size: 16px; margin: 8px; }
+    .products { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin: 24px 0; }
+    .product { border: 1px solid #ddd; border-radius: 8px; padding: 16px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Loja de Testes GA4</h1>
+  <p>Site criado para praticar Google Analytics 4.</p>
+
+  <div class="products">
+    <div class="product" onclick="viewItem('Produto A', 99.90)">
+      <h3>Produto A</h3><p>R$ 99,90</p>
+    </div>
+    <div class="product" onclick="viewItem('Produto B', 149.90)">
+      <h3>Produto B</h3><p>R$ 149,90</p>
+    </div>
+    <div class="product" onclick="viewItem('Produto C', 299.90)">
+      <h3>Produto C</h3><p>R$ 299,90</p>
+    </div>
+  </div>
+
+  <button class="btn" onclick="addToCart()">Adicionar ao carrinho</button>
+  <button class="btn" onclick="purchase()">Finalizar compra</button>
+  <button class="btn" onclick="signUp()">Criar conta</button>
+
+  <script>
+    function viewItem(name, price) {
+      gtag('event', 'view_item', {
+        currency: 'BRL', value: price,
+        items: [{ item_name: name, price: price }]
+      });
+      alert('Evento view_item enviado: ' + name);
+    }
+    function addToCart() {
+      gtag('event', 'add_to_cart', { currency: 'BRL', value: 99.90 });
+      alert('Evento add_to_cart enviado!');
+    }
+    function purchase() {
+      gtag('event', 'purchase', {
+        transaction_id: 'T-' + Date.now(),
+        currency: 'BRL', value: 99.90,
+        items: [{ item_name: 'Produto A', price: 99.90 }]
+      });
+      alert('Evento purchase enviado!');
+    }
+    function signUp() {
+      gtag('event', 'sign_up', { method: 'email' });
+      alert('Evento sign_up enviado!');
+    }
+  </script>
+</body>
+</html>
